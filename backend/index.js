@@ -22,7 +22,7 @@ const io = new Server(server, {
   cors: {
     origin: [
       "http://localhost:5173",
-      "https://fastly-frontend.onrender.com"
+      "https://pankaj-jr-fastly-food.onrender.com"
     ],
     credentials: true,
     methods: ["GET", "POST"]
@@ -37,7 +37,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://fastly-frontend.onrender.com"
+      "https://pankaj-jr-fastly-food.onrender.com"
     ],
     credentials: true
   })
