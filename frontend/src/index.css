@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+
+:root {
+  --primary-color: #ff69b4;
+  --hover-color: #efbbcc;
+  --bg-color: #fff9f6;
+  --border-color: #dddddd;
+  --text-color: #ff69b4;
+}
+
+*{
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+::-webkit-scrollbar,
+::-webkit-scrollbar{
+  display: none;
+}
+
+html, body { margin: 0; padding: 0; overflow-x: hidden; box-sizing: border-box; }
+
+.animated-underline {
+  display: inline-block;
+  position: relative;
+  padding-bottom: 4px;          /* space for the underline */
+  color: #111;                  /* text color; underline will use currentColor */
+  line-height: 1;
+}
+
+/* Both pseudo elements cover the full width and are 2px tall.
+   We use two pseudo-elements so one draws left->right and the other right->left,
+   offset in time using animation-delay. */
+.animated-underline::after,
+.animated-underline::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;                 /* thickness of underline */
+  bottom: 0;
+  background: currentColor;    /* matches text color */
+  transform: scaleX(0);        /* start invisible */
+  will-change: transform, opacity;
+}
+
+/* Left → Right */
+.animated-underline::after {
+  transform-origin: left center;
+  animation: drawLR 2s linear infinite;
+}
+
+/* Right → Left (starts halfway through the cycle) */
+.animated-underline::before {
+  transform-origin: right center;
+  animation: drawRL 2s linear infinite;
+  animation-delay: 1s;         /* half of duration so the two alternate */
+  opacity: 0.9;
+}
+
+/* keyframes: scaleX from 0 -> 1 -> 0 to draw then retract */
+@keyframes drawLR {
+  0%   { transform: scaleX(0); opacity: 1; }
+  40%  { transform: scaleX(1); opacity: 1; } /* fully drawn */
+  60%  { transform: scaleX(1); opacity: 1; } /* hold briefly */
+  100% { transform: scaleX(0); opacity: 0; } /* retract */
+}
+@keyframes drawRL {
+  0%   { transform: scaleX(0); opacity: 1; }
+  40%  { transform: scaleX(1); opacity: 1; }
+  60%  { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(0); opacity: 0; }
+}
