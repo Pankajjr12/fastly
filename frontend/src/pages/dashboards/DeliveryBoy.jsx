@@ -322,19 +322,24 @@ const DeliveryBoy = () => {
                 {currentOrder.shopOrder.subtotal}
               </p>
             </div>
-
-            <DeliveryBoyTracking
-              data={{
-                deliveryBoyLocation: {
-                  lat: deliveryBoyLocation?.lat,
-                  lon: deliveryBoyLocation?.lon,
-                },
-                customerLocation: {
-                  lat: currentOrder.deliveryAddress.latitude,
-                  lon: currentOrder.deliveryAddress.longitude,
-                },
-              }}
-            />
+            {currentOrder &&
+              deliveryBoyLocation?.lat &&
+              deliveryBoyLocation?.lon &&
+              currentOrder.deliveryAddress?.latitude &&
+              currentOrder.deliveryAddress?.longitude && (
+                <DeliveryBoyTracking
+                  data={{
+                    deliveryBoyLocation: {
+                      lat: deliveryBoyLocation?.lat,
+                      lon: deliveryBoyLocation?.lon,
+                    },
+                    customerLocation: {
+                      lat: currentOrder.deliveryAddress.latitude,
+                      lon: currentOrder.deliveryAddress.longitude,
+                    },
+                  }}
+                />
+              )}
 
             {!showOtpBox ? (
               <button
