@@ -3,12 +3,18 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false, // TLS STARTTLS
   auth: {
     user: process.env.EMAIL,
-    pass: process.env.PASS,   // Your App Password
+    pass: process.env.PASS,
+  },
+  tls: {
+    rejectUnauthorized: false, // Render fix
   },
 });
+
 
 export const sendOtpMail = async (to, otp) => {
     await transporter.sendMail({
